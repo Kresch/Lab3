@@ -14,4 +14,17 @@ dijkstra<-function(graph){
                 mini<-min(graph[,3][graph[,2]==neighbours])
                 return(mini)
         }
+        distance <- function(node1, node2){
+                distance <- Inf
+                if(node1 == node2){distance <- 0}
+                if(node2 %in% find_neighbours(node1)){
+                        for(i in 1:length(graph[,1])){
+                                if(graph[i,1]==node1 && graph[i,2]==node2){
+                                        distance <- graph[i,3]
+                                }
+                        }
+                }
+                return(distance)
+        }
+        
 }
