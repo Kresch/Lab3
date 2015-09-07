@@ -37,8 +37,8 @@ dijkstra<-function(graph,init_node){
         
         update_matrix <- function(matrix, current_node){
                 for(i in find_neighbours(current_node)){
-                        if(min(matrix[,i])>=distance(current_node,i)){
-                                matrix[current_node,i] <- distance(current_node,i)
+                        if(min(matrix[,i])>=distance(current_node,i) + matrix[current_node,current_node]){
+                                matrix[current_node,i] <- distance(current_node,i) + matrix[current_node, current_node]
                         }else{matrix[current_node,i] <- min(matrix[,i])}
                 }
                 return(matrix)
