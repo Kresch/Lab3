@@ -3,7 +3,7 @@ Type: Package
 Title: Euclidian algorithm and Dijkstra algorithm
 Version: 1.0
 Date: 2015-09-07
-Author: Niclas Lovsjö and Maxime Bonneau
+Author: Niclas Lovsjoeoeoeoe and Maxime Bonneau
 Maintainer: Maxime <maxbo907@student.liu.se>
 Description: Euclidian function runs the Euclidian algorithm to find the highest common factor between the two 
 parameters of this function.
