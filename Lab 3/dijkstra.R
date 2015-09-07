@@ -48,11 +48,31 @@ dijkstra<-function(graph,init_node){
         rownames(output)[init_node]<-as.character(init_node)
         output[1,init_node]<-0
         current_node<-init_node
-        
+        non_visited<-unique(graph[,1])
         
         find_neighbours(init_node)
         minimum<-find_min(current_node)
         distance(current_node,minimum)
-        
-        
+        iter<-1
+        while(!is.null(non_visited)){
+                iter<-iter+1
+                output<-update_matrix(output,iter)
+                print(output)
+                cat("nv =", non_visited)
+                non_visited<-non_visited[-which(non_visited==current_node)]
+                cat("nv =", non_visited)
+                
+                
+#                 current_node<-rownames(output)[output[current_node,]==min(output[current_node,
+#                         unique(graph[,1][is.na(pmatch(unique(graph[,1]),non_visited))])])]
+#                 print(current_node)
+                
+                current_node<-colnames(output)[output[current_node,]==min(output[current_node,non_visited])]
+                #doesnt work. gives back non_vis
+                print(current_node)
+                rownames(output)[current_node]<-as.character(current_node)
+                output[iter,current_node]<- output[iter-1,current_node]
+                
+        }
+        return(output)
 }
