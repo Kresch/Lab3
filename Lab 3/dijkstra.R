@@ -26,5 +26,12 @@ dijkstra<-function(graph){
                 }
                 return(distance)
         }
+        generate_matrix<-function(graph){
+                nodes<-unique(graph[,1])
+                char_nodes<-as.character(nodes)
+                grph_mtrx<-matrix(c(rep(0,times=length(nodes)^2)),ncol=length(nodes))
+                colnames(grph_mtrx)<-c(char_nodes)
+                return(grph_mtrx)
+        }
         
 }
