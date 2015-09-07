@@ -35,6 +35,13 @@ dijkstra<-function(graph,init_node){
                 return(grph_mtrx)
         }
         
+        update_matrix <- function(matrix, current_node){
+                for(i in find_neighbours(current_node)){
+                        matrix[current_node,i] <- distance(current_node,i)
+                }
+                return(matrix)
+        }
+        
         output<-generate_matrix(graph)
         rownames(output)[init_node]<-as.character(init_node)
         output[1,init_node]<-0
