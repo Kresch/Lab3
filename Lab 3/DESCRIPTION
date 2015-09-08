@@ -9,4 +9,4 @@ Description: Euclidian function runs the Euclidian algorithm to find the highest
 parameters of this function.
 Dijkstra function runs Dijkstra algorithm in order to find the distance of every other points to the one given as a 
 parameter of this function
-License: None
+License: GPL-2
