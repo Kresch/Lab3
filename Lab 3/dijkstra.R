@@ -31,7 +31,7 @@ dijkstra<-function(graph,init_node){
                 char_nodes<-as.character(nodes)
                 grph_mtrx<-matrix(c(rep(Inf,times=length(nodes)^2)),ncol=length(nodes))
                 colnames(grph_mtrx)<-c(char_nodes)
-                rownames(grph_mtrx)<-c(char_nodes)
+                rownames(grph_mtrx)<-c(init_node,rep(NA,length(char_nodes)-1))
                 return(grph_mtrx)
         }
         
@@ -56,6 +56,7 @@ dijkstra<-function(graph,init_node){
         minimum<-find_min(current_node)
         distance(current_node,minimum)
         iter<-1
+        output <- update_matrix(output, iter)
         while(!is.null(non_visited)){
                 iter<-iter+1
                 output<-update_matrix(output,iter)
