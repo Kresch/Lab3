@@ -57,14 +57,6 @@ dijkstra<-function(graph,init_node){
                 current_node<-colnames(output)[output[current_node,]==min(output[current_node,non_visited])][1]
                 if(!is.na(current_node)){rownames(output)[iter]<-as.character(current_node)}
                 if(!is.na(current_node)){output<-update_matrix(output,current_node)}
-
-                
-                
-#                 current_node<-rownames(output)[output[current_node,]==min(output[current_node,
-#                         unique(graph[,1][is.na(pmatch(unique(graph[,1]),non_visited))])])]
-#                 print(current_node)
-                
-                
                 if((iter+1)<=length(output[,1])){output[iter+1,]<- output[iter,]}
         }
         result <- as.vector((output[length(output[,1]),]))
