@@ -37,46 +37,47 @@ dijkstra<-function(graph,init_node){
         
         update_matrix <- function(matrix, current_node){
                 for(i in find_neighbours(current_node)){
+                        cn <- as.character(current_node)
                         if(min(matrix[,i]) != Inf){
-                                if(matrix[current_node,i]>=distance(current_node,i) + matrix[current_node,current_node]){
-                                        matrix[current_node,i] <- distance(current_node,i) + matrix[current_node, current_node]
+                                if(matrix[cn,i]>=distance(current_node,i) + matrix[cn,cn]){
+                                        matrix[cn,i] <- distance(current_node,i) + matrix[cn, cn]
                                 }
-                        }else{matrix[current_node,i] <- distance(current_node,i) + matrix[current_node, current_node]}
+                        }else{matrix[cn,i] <- distance(current_node,i) + matrix[cn, cn]}
                 }
                 return(matrix)
         }
         
         output<-generate_matrix(graph)
-        rownames(output)[init_node]<-as.character(init_node)
         output[1,init_node]<-0
         current_node<-init_node
         non_visited<-unique(graph[,1])
         
-        find_neighbours(init_node)
+        find_neighbours(init_node) 
         minimum<-find_min(current_node)
         distance(current_node,minimum)
         iter<-1
-        output <- update_matrix(output, iter)
+        rownames(output)[iter] <- as.character(init_node)
+        output <- update_matrix(output, init_node)
         output[iter+1,]<- output[iter,]
-        while(!is.null(non_visited)){
+        while(!is.na(current_node)){
                 iter<-iter+1
-                output<-update_matrix(output,iter)
-                print(output)
-                cat("nv =", non_visited)
                 non_visited<-non_visited[-which(non_visited==current_node)]
-                cat("nv =", non_visited)
+                current_node<-colnames(output)[output[current_node,]==min(output[current_node,non_visited])][1]
+                if(!is.na(current_node)){rownames(output)[iter]<-as.character(current_node)}
+                if(!is.na(current_node)){output<-update_matrix(output,current_node)}
+
                 
                 
 #                 current_node<-rownames(output)[output[current_node,]==min(output[current_node,
 #                         unique(graph[,1][is.na(pmatch(unique(graph[,1]),non_visited))])])]
 #                 print(current_node)
                 
-                current_node<-colnames(output)[output[current_node,]==min(output[current_node,non_visited])][1]
-                print(current_node)
-                rownames(output)[iter]<-as.character(current_node)
-                print(output)
-                output[iter+1,]<- output[iter,]
-                print(output)
+                
+                if((iter+1)<=length(output[,1])){output[iter+1,]<- output[iter,]}
         }
         return(output)
 }
+
+test <- data.frame(v1=c(1,1,2,2,2,3,3,3,3,4,4,4,4,5,5,5,6,6),
+                   v2=c(2,3,1,3,4,1,2,4,5,2,3,5,6,3,4,6,4,5),
+                   w=c(4,2,4,1,5,2,1,8,10,5,8,2,6,10,2,3,6,3))
