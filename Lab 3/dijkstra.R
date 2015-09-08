@@ -38,10 +38,10 @@ dijkstra<-function(graph,init_node){
         update_matrix <- function(matrix, current_node){
                 for(i in find_neighbours(current_node)){
                         if(min(matrix[,i]) != Inf){
-                                if(min(matrix[,i])>=distance(current_node,i) + matrix[current_node,current_node]){
+                                if(matrix[current_node,i]>=distance(current_node,i) + matrix[current_node,current_node]){
                                         matrix[current_node,i] <- distance(current_node,i) + matrix[current_node, current_node]
-                                }else{matrix[current_node,i] <- min(matrix[,i])}
-                        }else{matrix[current_node,i] <- distance(current_node,i)}
+                                }
+                        }else{matrix[current_node,i] <- distance(current_node,i) + matrix[current_node, current_node]}
                 }
                 return(matrix)
         }
@@ -57,6 +57,7 @@ dijkstra<-function(graph,init_node){
         distance(current_node,minimum)
         iter<-1
         output <- update_matrix(output, iter)
+        output[iter+1,]<- output[iter,]
         while(!is.null(non_visited)){
                 iter<-iter+1
                 output<-update_matrix(output,iter)
@@ -73,8 +74,9 @@ dijkstra<-function(graph,init_node){
                 current_node<-colnames(output)[output[current_node,]==min(output[current_node,non_visited])][1]
                 print(current_node)
                 rownames(output)[iter]<-as.character(current_node)
-                output[iter,current_node]<- output[iter-1,current_node]
-                
+                print(output)
+                output[iter+1,]<- output[iter,]
+                print(output)
         }
         return(output)
 }
