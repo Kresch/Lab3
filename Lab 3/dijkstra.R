@@ -67,10 +67,9 @@ dijkstra<-function(graph,init_node){
 #                         unique(graph[,1][is.na(pmatch(unique(graph[,1]),non_visited))])])]
 #                 print(current_node)
                 
-                current_node<-colnames(output)[output[current_node,]==min(output[current_node,non_visited])]
-                #doesnt work. gives back non_vis
+                current_node<-colnames(output)[output[current_node,]==min(output[current_node,non_visited])][1]
                 print(current_node)
-                rownames(output)[current_node]<-as.character(current_node)
+                rownames(output)[iter]<-as.character(current_node)
                 output[iter,current_node]<- output[iter-1,current_node]
                 
         }
