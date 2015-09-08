@@ -5,6 +5,16 @@ wiki_graph <-
 
 ###
 
+#' @param a dataframe and a starting node (scalar)
+#' @description takes a graph and starting node. 
+#' Runs dijkstra's algorithm, 
+#' i.e. finds the shortest distance to each other node.
+#' @return a vector of shortest distances to each other node.
+#' @references https://en.wikipedia.org/wiki/Dijkstra%27s_algorithm
+#'
+#'
+#'
+
 dijkstra<-function(graph,init_node){
         find_neighbours<-function(node){
                 return(graph[,2][graph[,1]==node])
